@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>{% block title %}{% end %}</title>
+	{% block head %}<!-- 用于导入CSS文件 -->
+	<link href="{{static_url("css/style.css")}}" rel="stylesheet" type="text/css" />
+	<script type="text/javascript" src="{{static_url("js/cufon-yui.js")}}"></script>
+	<script type="text/javascript" src="{{static_url("js/arial.js")}}"></script>
+	<script type="text/javascript" src="{{static_url("js/cuf_run.js")}}"></script>
+	<script type="text/javascript" src="{{static_url("js/jquery-1.3.2.min.js")}}"></script>
+	<script type="text/javascript" src="{{static_url("js/radius.js")}}"></script>
+	{% end %}
+</head>
+
+<body>
+		<!-- 登录部分，各页面无需改动 -->
+		<div class="main">
+			<div class="header">
+    			<div class="header_resize">
+      				<div class="menu_nav">
+        				<ul>
+				          <li><a href="/">Home</a></li>
+				          <li><a href="/problems/" >Problem</a></li>
+				          <li><a href="/status/"  >Status</a></li>
+				          <li><a href="/ranklist/">Ranklist</a></li>
+				          <li><a href="/faq/"     >Faq</a></li>
+				        </ul>
+     				 </div>
+     				 <div class="logo">
+					        <h1><a href="index.html">Welcome <small>to HeiLongJiang University 
+					</small></a></h1></div>
+      				<div class="clr"></div>
+    				</div>
+  				</div>
+  	<div class="content">
+    <div class="content_resize">
+      <div class="mainbar">
+        <div class="article">
+		<!-- 登录部分，各页面无需改动 -->
+			{% block body %}
+		{% end %}
+        </div>
+      </div>
+      {% block login %}
+      
+		{% end %}
+    </div>
+  </div>
+	</div>
+<div class="clr"></div>
+<div class="footer">
+		Copyright © 2012-2013 HLJU ACM Team. All Rights Reserved.<br>
+		Designer & Developer :<a href="">icefish:iceafish@gmail.com &nbsp kitty: cottonyin2012@gmail.com</a>
+	</div>
+</body>
+</html>

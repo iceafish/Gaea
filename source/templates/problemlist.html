@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}Problem List{% end %}
+{% block sub %}{% end %}
+
+{% block body %}
+	<table width="100%">
+	<th width="5%">ID</th>
+	<th width="60%">Title</th>
+	<th width="10%">Ratio</th>
+	<th width="15%">Source</th>
+	<th width="10%"></th>
+	
+	{% for id in problems %}
+	<tr>
+		{% if id['use_able'] == 'on' %}
+				<td><center><a href="/problem/{{ id['_id'] }}">{{ id['_id'] }}</a></center></td>
+				<td><a href="/problem/{{ id['_id'] }}">{{ id['title'] }}</a></td>
+				<td><center>{{ id['ratio'] }}({{ id['AC'] }}/{{ id['total'] }})</center></td>
+				<td><center>{{ id['source'] }}</center></td>
+		{% end %}
+	</tr>
+	{% end %}
+	</table>
+	
+	
+{% end %}
