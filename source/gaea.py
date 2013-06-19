@@ -8,7 +8,7 @@ import os.path
 import pymongo
 from tornado.options import define, options
 from admin import AdminHandler
-from Problems import ProblemsHandler
+from Problems import ProblemsHandler, ShowProblemHandler
 
 define("port", default=8888, help="run on the given port", type=int)
 
@@ -18,7 +18,7 @@ class Application(tornado.web.Application):
         handlers = [
             (r"/", IndexHandler),
             (r"/problems/", ProblemsHandler),
-            
+            (r"/problem/(\d+)", ShowProblemHandler),
             (r"/admin/", AdminHandler),
         ]
         settings = dict(

@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Problem {{problem['title']}}{% end %}
+{% block body %}
+	<h3>{{ problem['title'] }}</h3>
+	Total Submissions:  {{ problem['total'] }} Accepted: {{ problem['AC'] }}</br>
+	Time Limit: {{ problem['time_limit'] }}s  Memory Limit: {{ problem['memory_limit'] }}k</br>
+	<font color="blue" ><b>Description:</b></font></br>
+	{{ problem['description'] }}</br>
+	<font color="blue" ><b>Input:</b></font></br>
+	{{ problem['input'] }}</br>
+	<font color="blue" ><b>Output:</b></font></br>
+	{{ problem['output'] }}</br>
+	<font color="blue" ><b>Sample Input:</b></font></br>
+	{{ problem['sample_input'] }}</br>
+	<font color="blue" ><b>Sample Output:</b></font></br>
+	{{ problem['sample_output'] }}</br>
+	{% if problem['hint'] %}
+		<body>Hint:</body></br>
+		{{ problem['hint'] }}</br>
+	{% end %}
+    Source:</br>
+    {{ problem['source'] }}</br></br>
+    
+{% end %}

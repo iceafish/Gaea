@@ -22,7 +22,7 @@
       				<div class="menu_nav">
         				<ul>
 				          <li><a href="/">Home</a></li>
-				          <li><a href="/problems/" >Problem</a></li>
+				          <li><a href="/problem/" >Problem</a></li>
 				          <li><a href="/status/"  >Status</a></li>
 				          <li><a href="/ranklist/">Ranklist</a></li>
 				          <li><a href="/faq/"     >Faq</a></li>
@@ -39,12 +39,42 @@
       <div class="mainbar">
         <div class="article">
 		<!-- 登录部分，各页面无需改动 -->
-		{% block body %}
+			{% block body %}
 		{% end %}
         </div>
       </div>
       {% block login %}
-      
+      <!--
+      <div class="sidebar">
+			{% if not request.user.is_authenticated %}
+					<form action="/user/login/" method="post">
+						Username:<input type="text" name="username" /><br>
+						Password:<input type="password" name="password"></input><br>
+						<input type="submit" value="Sign In" />
+					</form>
+					<a href="/user/reg/">Register</a>
+			{% else %}
+						Welcome to <a href="/user/myinfo/">{{ request.user.username }}.</a>
+						<a href="/user/logout/">Logout</a>
+			{% end %}
+			{% block sub %}
+			{% if request.user.is_authenticated %}
+					<form enctype="multipart/form-data" method="post" action="/submit/{{ problem.id }}/">
+						<table>
+						{% for field in form %}
+								{{ field.label_tag }}: {{ field }}</br>
+						{% end %} 
+						</table>
+						<input class="submit" type="submit" value="Submit"/></br>
+					</form>
+			{% else %}
+					<div class="in">
+					<color="red" >If you want to submit your code</br> please log first.</font>
+					</div>
+    		{% end %}
+			{% end %}
+		</div>
+		-->
 		{% end %}
     </div>
   </div>

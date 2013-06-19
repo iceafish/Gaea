@@ -6,7 +6,10 @@ Online Judge System powered by Tornado
 ###06.19 icefish
 ------
 1>套用原前台模板
-
+	1.1 实现主页显示(因为还没有设计user，所以暂不支持登陆)
+	1.2 实现题目列表显示
+	1.3 实现题目显示
+	
 2>简单实现admin添加题目功能
 	2.1 题目id自动增长(id 字段为 '_id')
 	2.2 为了实现2.1功能添加 ids collection
