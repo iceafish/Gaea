@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block title %}增加 Problem{% end %}
+{% block body %}
+	<form enctype="multipart/form-data" action="" method="post" id="problem_form">
+	<div>
+		<label for="title" class="required">Title:</label>
+		<input class="Text" id="title" maxlength="50" name="title" type="text" />
+	</div>
+	<div>
+		<label for="time_limit" class="required">TimeLimit:</label>
+		<input class="Integer" id="time_limit" name="time_limit" type="text" value="1" />
+	</div>
+	<div>
+		<label for="memory_limit" class="required">MemoryLimit:</label>
+		<input class="Integer" id="memory_limit" name="memory_limit" type="text" value="64" />
+	</div>
+	<div>
+		<input id="use_able" name="use_able" type="checkbox" />
+		<label for="use_able" class="Checkbox">UseAble</label>
+	</div>
+	<div>
+		<label for="description">Description:</label>
+		<textarea class="TextArea" cols="40" id="description" name="description" rows="10"></textarea>
+	</div>
+	<div>
+		<label for="input">Input:</label>
+		<textarea class="TextArea" cols="40" id="input" name="input" rows="10"></textarea>
+	</div>
+	<div>
+		<label for="output">Output:</label>
+		<textarea class="TextArea" cols="40" id="output" name="output" rows="10"></textarea>
+	</div>
+	<div>
+		<label for="sample_input">SampleInput:</label>
+		<textarea class="TextArea" cols="40" id="sample_input" name="sample_input" rows="10"></textarea>
+	</div>
+	<div>
+		<label for="sample_output">SampleOutput:</label>
+		<textarea class="TextArea" cols="40" id="sample_output" name="sample_output" rows="10"></textarea>
+	</div>
+	<div>
+		<label for="hint">Hint:</label>
+		<textarea class="TextArea" cols="40" id="hint" name="hint" rows="10"></textarea>
+	</div>
+	<div>
+		<label for="source">Source:</label>
+		<input class="Text" id="source" maxlength="256" name="source" type="text" />
+	</div>
+
+	<div class="submit-row">
+		<input type="submit" value="保存" name="_save" />
+	</div>
+	</form>
+{% end %}

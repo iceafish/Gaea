@@ -1,14 +1,40 @@
 import tornado.web
+import tornado.auth
 import tornado.httpserver
+import tornado.escape
 import pymongo
 
-class AdminHomeHandler(tornado.web.RequestHandler):
+
+class BaseHandler(tornado.web.RequestHandler):
     
+    def get_current_user(self):
+        return self.get_secure_cookie("administrator")
+
+class AdminHomeHandler(BaseHandler):
+    
+    @tornado.web.authenticated
     def get(self):
         self.render("admin/index.html")
 
+class AdminLoginHandler(BaseHandler):
+    
+    def get(self):
+        self.render("admin/login.html")
 
-class AddProblemHandler(tornado.web.RequestHandler):
+    
+    def post(self):
+        self.set_secure_cookie("administrator", self.get_argument("name"))
+        self.redirect("/admin")
+
+
+class AdminLogoutHandler(BaseHandler):
+    
+    def get(self):
+        self.clear_cookie("administrator")
+        self.write('You are now logged out. Click <a href="/">here</a> to log back in.')
+
+
+class AddProblemHandler(BaseHandler):
     
     def getNextSequence(self):
         db = self.application.db.ids
@@ -19,10 +45,12 @@ class AddProblemHandler(tornado.web.RequestHandler):
             upsert = True,
         )
         return ret['id']
-        
+    
+    @tornado.web.authenticated 
     def get(self):
         self.render("admin/add_new_problem.html")
-    
+        
+    @tornado.web.authenticated
     def post(self):
         new_problem = {
             "_id" : self.getNextSequence(),
@@ -51,5 +79,5 @@ class AddProblemHandler(tornado.web.RequestHandler):
         print new_problem
         db = self.application.db.problems
         db.insert( new_problem )
-        self.write("Add new problem %s successful.<br/> <a href=\"/problems/\"     >Return to problems Page</a>" % new_problem['title'])
+        self.write("Add new problem %s successful.<br/> <a href=\"/problems\"     >Return to problems Page</a>" % new_problem['title'])
         
