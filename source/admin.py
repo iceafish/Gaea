@@ -2,7 +2,13 @@ import tornado.web
 import tornado.httpserver
 import pymongo
 
-class AdminHandler(tornado.web.RequestHandler):
+class AdminHomeHandler(tornado.web.RequestHandler):
+    
+    def get(self):
+        self.render("admin/index.html")
+
+
+class AddProblemHandler(tornado.web.RequestHandler):
     
     def getNextSequence(self):
         db = self.application.db.ids
@@ -15,7 +21,7 @@ class AdminHandler(tornado.web.RequestHandler):
         return ret['id']
         
     def get(self):
-        self.render("admin.html")
+        self.render("admin/add_new_problem.html")
     
     def post(self):
         new_problem = {
