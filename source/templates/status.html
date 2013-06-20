@@ -1,6 +1,6 @@
 {% extends "base.html" %}
-{% block title %}Status{% endblock %}
-{% block sub %}{% endblock %}
+{% block title %}Status{% end %}
+{% block sub %}{% end %}
 {% block body %}
 	<table width="100%">
 	<th width="5%">ID</th>
@@ -27,14 +27,14 @@
 			<td> <center> Microsoft Visual C++ 2010 </center></td>
 		{% elif items.languageTypeID == 4 %}
 			<td> <center> Java </center></td>
-		{% endif %}
+		{% end %}
 		
 		<td><center>{{items.submitTime}} </center></td>
 	</tr>
-	{% endfor %}
+	{% end %}
 	</table>
 	PAGE:-->
 	{% for x in pagenum %}
 	<a href = "/status/{{x}}">{{x}}</a>&nbsp
-	{% endfor %}
-{% endblock %}
+	{% end %}
+{% end %}

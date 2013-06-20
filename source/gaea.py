@@ -19,6 +19,7 @@ class Application(tornado.web.Application):
             (r"/", IndexHandler),
             (r"/problems/", ProblemsHandler),
             (r"/problem/(\d+)", ShowProblemHandler),
+            (r"/faq/", FaqHandler),
             (r"/admin/", AdminHandler),
         ]
         settings = dict(
@@ -37,6 +38,11 @@ class IndexHandler(tornado.web.RequestHandler):
     def get(self):
         self.render("index.html")
         
+class FaqHandler(tornado.web.RequestHandler):
+    
+    def get(self):
+        self.render("faq.html")
+           
         
 def main():
     tornado.options.parse_command_line()
