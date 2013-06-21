@@ -20,14 +20,19 @@
 	{% end %}
     Source:</br>
     {{ problem['source'] }}</br></br>
-    {%block login%}
+    
+{% end %}
+{%block login%}
  
     {% if curuser != "None" %}
 		<form enctype="multipart/form-data" method="post" action="/submit/{{ problem['_id'] }}/">
 			<table>
+			    <select name="language" id="">
+			    	<option value="1">C</option>
+			    	<option value="2">C++</option>
+			    	<option value="3">Java</option>
+			    </select>
 			    <input name="code_file" type="file">
-			    
-			    </form> 
 			</table>
 			<input class="submit" type="submit" value="Submit"/></br>
 		</form>
@@ -36,5 +41,4 @@
 		<color="red" >If you want to submit your code</br> please log first.</font>
 		</div>
     {%end%}
-    {%end%}
-{% end %}
+{%end%}

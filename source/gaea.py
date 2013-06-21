@@ -42,7 +42,7 @@ class Application(tornado.web.Application):
             "template_path" : os.path.join(os.path.dirname(__file__), "templates"),
             "static_path" : os.path.join(os.path.dirname(__file__), "static"),
             "cookie_secret" : "123456789",
-            "login_url" : "/admin/login",
+            "login_url" : "/",
             "debug" : True,
         }
         conn = pymongo.Connection("localhost", 27017)

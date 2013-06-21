@@ -27,3 +27,8 @@ class ShowProblemHandler(tornado.web.RequestHandler):
         
         self.render("problemInfo.html", problem = problem, curuser = name)
     
+class SubmitProblemHandler(tornado.web.RequestHandler):
+    
+    @tornado.web.authenticated
+    def post(self):
+        pass
