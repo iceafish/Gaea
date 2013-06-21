@@ -2,7 +2,6 @@
 {% block title %}Home{% end %}
 {% block sub %}{% end %}
 {% block body%}
-
 <center><font size="5px" color="red">ACM队简介</font></center>
 
 <center>
@@ -14,4 +13,17 @@ ACM队的队员在程序设计方面几乎始终代表着全院的最高水平�
 如果你有意加入这支优秀的队伍，就用你的行动来证明你的优秀吧<br><br>
 <font color="red" size="4">Come on, ACMer !!!</font>
 </center>
+{% end %}
+{% block login %}
+{% if curuser=="None" %}
+	<form action="/login" method="post">
+		Username:<input type="text" name="username" /><br>
+		Password:<input type="password" name="password"></input><br>
+		<input type="submit" value="Sign In" />
+	</form>
+	<a href="/register">Register</a>
+{% else %}
+	Welcome to <a href="/user/myinfo/">{{ curuser }}.</a>
+	<a href="/logout">Logout</a>
+{% end %}
 {% end %}

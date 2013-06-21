@@ -3,6 +3,15 @@ Gaea
 
 Online Judge System powered by Tornado
 
+###06.20 icefish
+------
+1>对原有部分代码风格调整
+2>实现基本user
+	2.1 user密码采用base64库基础加密
+	2.2 user尚未完善
+3>实现前台user响应
+4>实现提交题目form
+
 ###06.19 icefish
 ------
 1>套用原前台模板

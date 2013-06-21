@@ -12,7 +12,11 @@ from admin import (AdminHomeHandler,
                    AddProblemHandler, 
                    AdminLoginHandler,
                    AdminLogoutHandler,)
-from Problems import ProblemsHandler, ShowProblemHandler
+from problems import (ProblemsHandler, 
+                      ShowProblemHandler)
+from users import (RegisterUserHandler,
+                   UserLoginHandler,
+                   UserLogoutHandler)
 
 define("port", default=8888, help="run on the given port", type=int)
 
@@ -24,6 +28,11 @@ class Application(tornado.web.Application):
             (r"/problems", ProblemsHandler),
             (r"/problem/(\d+)", ShowProblemHandler),
             (r"/faq", FaqHandler),
+            
+            (r"/register", RegisterUserHandler),
+            (r"/login", UserLoginHandler),
+            (r"/logout", UserLogoutHandler),
+            
             (r"/admin", AdminHomeHandler),
             (r"/admin/login", AdminLoginHandler),
             (r"/admin/logout", AdminLogoutHandler),
@@ -44,8 +53,15 @@ class Application(tornado.web.Application):
         
 class IndexHandler(tornado.web.RequestHandler):
     
+    def get_current_user(self):
+        return self.get_secure_cookie("userinfo")
+    
     def get(self):
-        self.render("index.html")
+        if self.current_user:
+            name = self.current_user
+        else:
+            name = "None"
+        self.render("index.html", curuser = name)
         
 class FaqHandler(tornado.web.RequestHandler):
     
