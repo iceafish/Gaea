@@ -11,30 +11,29 @@
 	<th width="15%">Language</th>
 	<th width="35%">Submit Time</th>
 	
-	{% for items in statuslist %}
+	{% for items in status_list %}
 	<tr>
-		<td> <center>{{items.id}} </center></td>
-		<td> <center>{{items.user}} </center></td>
-		<td> <center>{{items.problemID}} </center></td>
-		<td> <center>{{items.result}} </center></td>
-		<td> <center>{{items.timeUsed}} </center></td>
-		
-		{% if items.languageTypeID == 1 %}
+		<td> <center>{{items['_id']}} </center></td>
+		<td> <center>{{items['user_name']}} </center></td>
+		<td> <center>{{items['problem_id']}} </center></td>
+		{% if not items['result'] %}
+			<td><center>{{ 'Waiting' }}</center></td>
+			<td><center>{{ '0' }}</center></td>
+		{% else %}
+			<td> <center>{{items['result']['result']}} </center></td>
+			<td> <center>{{items['result']['time_used']}} </center></td>
+		{% end %}
+		{% if items['language_id'] == 1 %}
 			<td> <center> GNU C </center></td>
-		{% elif items.languageTypeID == 2 %}
+		{% elif items['language_id'] == 2 %}
 			<td> <center> GNU C++ 4.7 </center></td>
-		{% elif items.languageTypeID == 3 %}
-			<td> <center> Microsoft Visual C++ 2010 </center></td>
-		{% elif items.languageTypeID == 4 %}
+		{% elif items['language_id'] == 3 %}
 			<td> <center> Java </center></td>
 		{% end %}
 		
-		<td><center>{{items.submitTime}} </center></td>
+		<td><center>{{items['submit_date']}} </center></td>
 	</tr>
 	{% end %}
 	</table>
-	PAGE:-->
-	{% for x in pagenum %}
-	<a href = "/status/{{x}}">{{x}}</a>&nbsp
-	{% end %}
+
 {% end %}

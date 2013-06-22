@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}rank{% end %}
+{% block sub %}{% end %}
+{% block body %}
+
+<table width="100%">
+	<tr>
+	<th width="40%">WHO</th>
+	<th width="30%">Solved</th>
+	<th width="30%">SUBMIT</th>
+	<!-- <th>SCORE</th> -->
+	</tr>
+
+	<tr>
+	{% for x in users %}
+	<td><center>{{x['user_name']}}</center></td>
+	<td><center>{{x['info']['accept']}}</center></td>
+	<td><center>{{x['info']['submit']}}</center></td>
+	</tr>
+	{% end %}
+</table>
+{% end %}

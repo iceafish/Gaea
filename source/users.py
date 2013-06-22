@@ -7,7 +7,7 @@ import base64
 class BaseHandler(tornado.web.RequestHandler):
     
     def get_current_user(self):
-        return self.get_secure_cookie("userinfo")
+        return self.get_secure_cookie("user_info")
     
 
 def coding(source):
@@ -21,11 +21,11 @@ def uncoding(source):
 class UserLoginHandler(BaseHandler):
     
     def post(self):
-        uname = self.get_argument("username")
+        uname = self.get_argument("user_name")
         passwd = self.get_argument("password")
         
         db = self.application.db.users
-        confirm = db.find_one({"username": uname})
+        confirm = db.find_one({"user_name": uname})
         
         if not confirm:
             self.write("User %s not exist." % uname)
@@ -37,13 +37,13 @@ class UserLoginHandler(BaseHandler):
             self.write("wrong password.")
             return 
         
-        self.set_secure_cookie("userinfo", uname)
+        self.set_secure_cookie("user_info", uname)
         self.redirect("/")
 
 class UserLogoutHandler(BaseHandler):
     
     def get(self):
-        self.clear_cookie("userinfo")
+        self.clear_cookie("user_info")
         self.redirect("/")
 
 class RegisterUserHandler(BaseHandler):
@@ -53,9 +53,9 @@ class RegisterUserHandler(BaseHandler):
     
     def post(self):
         db = self.application.db.users
-        uname = self.get_argument("username")
+        uname = self.get_argument("user_name")
         pw = self.get_argument("password")
-        exist = db.find({"username": uname}).count()
+        exist = db.find({"user_name": uname}).count()
         if exist != 0:
             self.write("user is exist.")
             return
@@ -63,7 +63,7 @@ class RegisterUserHandler(BaseHandler):
         code_pw = coding(pw)
         
         new_user = {
-            "username": uname,
+            "user_name": uname,
             "passwd": code_pw,
             "email": self.get_argument("email"),
             "group": "student",

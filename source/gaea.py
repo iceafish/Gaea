@@ -13,7 +13,8 @@ from admin import (AdminHomeHandler,
                    AdminLoginHandler,
                    AdminLogoutHandler,)
 from problems import (ProblemsHandler, 
-                      ShowProblemHandler)
+                      ShowProblemHandler,
+                      SubmitProblemHandler)
 from users import (RegisterUserHandler,
                    UserLoginHandler,
                    UserLogoutHandler)
@@ -27,6 +28,10 @@ class Application(tornado.web.Application):
             (r"/", IndexHandler),
             (r"/problems", ProblemsHandler),
             (r"/problem/(\d+)", ShowProblemHandler),
+            (r"/status", StatusHandler),
+            (r"/ranklist", RankHandler),
+            (r"/submit/(\d+)", SubmitProblemHandler),
+            
             (r"/faq", FaqHandler),
             
             (r"/register", RegisterUserHandler),
@@ -54,7 +59,7 @@ class Application(tornado.web.Application):
 class IndexHandler(tornado.web.RequestHandler):
     
     def get_current_user(self):
-        return self.get_secure_cookie("userinfo")
+        return self.get_secure_cookie("user_info")
     
     def get(self):
         if self.current_user:
@@ -63,6 +68,20 @@ class IndexHandler(tornado.web.RequestHandler):
             name = "None"
         self.render("index.html", curuser = name)
         
+        
+class StatusHandler(tornado.web.RequestHandler):
+    
+    def get(self):
+        db = self.application.db.judge_queues
+        self.render("status.html", status_list=db.find())
+
+class RankHandler(tornado.web.RequestHandler):
+    
+    def get(self):
+        db = self.application.db.users
+        self.render("rank.html", users = db.find({'group':'student'}))
+        
+
 class FaqHandler(tornado.web.RequestHandler):
     
     def get(self):
