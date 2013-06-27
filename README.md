@@ -5,15 +5,15 @@ Online Judge System powered by Tornado
 
 06.27 icefish
 ------
->实现测试数据上传
+实现测试数据上传
 >>在新建题目时,自动在judger/DataFile 下建立对应id的数据文件夹
 
->修改部分数据库模型
->judger 实现判定 AC,WA,TLE,RE 结果
+修改部分数据库模型
+judger 实现判定 AC,WA,TLE,RE 结果
 
 06.26 icefish
 ------
->实现判题judger模块
+实现判题judger模块
 >>judger 模块设计
 >>judger 模块完全独立于 tornado 部分，独立服务
 >>分为本地和网络两个部分
@@ -23,12 +23,12 @@ Online Judge System powered by Tornado
 >>由 redis 提供的同步队列功能，judger 可以自动接受判题请求
 >>支持阻塞
 
->judger 目前现有缺陷
+judger 目前现有缺陷
 >>只实现本地模块
 >>由于暂时没有找到一种较好的内存检测方法，暂不支持内存判断
 >>不能保证判题机的安全(不能进行代码安全行检查)
 
->OJ现有问题
+OJ现有问题
 >>admin 添加题目还不能添加数据
 
 06.22 icefish
