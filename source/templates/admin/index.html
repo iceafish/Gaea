@@ -3,6 +3,11 @@
 
 {% block body%}
 
+{% for item in problems %}
+    <a href="/admin/problem/{{item['_id']}}">{{ item['_id'] }}</a> <br />
+{% end %}
+
 <a href="/admin/add/problem">Add New Problem</a><br/>
+<a href="/admin/add/data">Add Data File</a><br/>
 <a href="/admin/logout">Log Out</a>
 {% end %}

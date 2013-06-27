@@ -8,10 +8,7 @@ import tornado.auth
 import os.path
 import pymongo
 from tornado.options import define, options
-from admin import (AdminHomeHandler, 
-                   AddProblemHandler, 
-                   AdminLoginHandler,
-                   AdminLogoutHandler,)
+from admin import *
 from problems import (ProblemsHandler, 
                       ShowProblemHandler,
                       SubmitProblemHandler)
@@ -42,6 +39,8 @@ class Application(tornado.web.Application):
             (r"/admin/login", AdminLoginHandler),
             (r"/admin/logout", AdminLogoutHandler),
             (r"/admin/add/problem", AddProblemHandler),
+            (r"/admin/add/data", AddDataFileIndexHandler),
+            (r"/admin/add/data/(\d+)", AddDataFileHandler),
         ]
         settings = {
             "template_path" : os.path.join(os.path.dirname(__file__), "templates"),

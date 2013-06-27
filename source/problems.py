@@ -1,7 +1,6 @@
 import tornado.httpserver
 import tornado.web
 import time
-import pymongo
 
 class BaseHandler(tornado.web.RequestHandler):
     
@@ -50,8 +49,7 @@ class SubmitProblemHandler(BaseHandler):
             "language_id": int(self.get_argument("language")),
             "user_name": self.current_user,
             "submit_date": time.ctime(),
-            "code_file": "",
-            "result": {}
+            "result": None
         }
         '''
         result = {
@@ -65,7 +63,7 @@ class SubmitProblemHandler(BaseHandler):
             self.write("file type error")
             return 
         
-        file_name = "./dissemination/%d.%s" % (new_post['_id'],file_type)
+        file_name = "./judger/SourceCode/%d.%s" % (new_post['_id'],file_type)
         
         fin = open(file_name, 'w')
         fin.write(submit_file['body'])
@@ -87,8 +85,7 @@ class SubmitProblemHandler(BaseHandler):
             {'_id': new_post['problem_id']},
             {'$inc': {'info.total': 1}}
         )
-        #yield judge_request
-        
+
         self.redirect('/status')
         
         
