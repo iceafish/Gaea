@@ -5,11 +5,11 @@ Online Judge System powered by Tornado
 
 06.27 icefish
 ------
-### 1>实现测试数据上传<br />
-        1.1 在新建题目时,自动在judger/DataFile 下建立对应id的数据文件夹<br />
+		1>实现测试数据上传<br />
+			1.1 在新建题目时,自动在judger/DataFile 下建立对应id的数据文件夹<br />
 
-### 2>修改部分数据库模型<br />
-### 3>judger 实现判定 AC,WA,TLE,RE 结果<br />
+		2>修改部分数据库模型<br />
+		3>judger 实现判定 AC,WA,TLE,RE 结果<br />
 
 ### 06.26 icefish
 ------
