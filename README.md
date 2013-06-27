@@ -6,7 +6,6 @@ Online Judge System powered by Tornado
 06.27 icefish
 ------
 实现测试数据上传
->
 >在新建题目时,自动在judger/DataFile 下建立对应id的数据文件夹
 >
 修改部分数据库模型
@@ -16,7 +15,6 @@ judger 实现判定 AC,WA,TLE,RE 结果
 06.26 icefish
 ------
 实现判题judger模块
->
 >judger 模块设计
 >
 >judger 模块完全独立于 tornado 部分，独立服务
