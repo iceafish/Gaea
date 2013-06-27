@@ -47,16 +47,25 @@ OJ现有问题
 ------
 提交题目
 >status数据库集合为 judge_queues
+>
 >提交代码文件名为集合'_id'，放在dissemination目录等待分发
+>
 >提交时记录题目信息、用户提交信息
+>
 >判题请求发送时将设计为异步模式
+
 ranklist界面显示
 >仅显示普通用户
 部分代码和前台代码调整
+>
 部分数据库结构调整
+>
 >pull 后需要执行数据库语句 
+>
 >>ids.remove()
+>
 >>problems.remove()
+>
 >>judge_queues.remove()
 
 06.20 icefish
