@@ -3,15 +3,15 @@ Gaea
 
 Online Judge System powered by Tornado
 
-###06.27 icefish
+### 06.27 icefish
 ------
-1>实现测试数据上传
-    1.1 在新建题目时,自动在judger/DataFile 下建立对应id的数据文件夹
+1>实现测试数据上传<br />
+    1.1 在新建题目时,自动在judger/DataFile 下建立对应id的数据文件夹<br />
 
-2>修改部分数据库模型
-3>judger 实现判定 AC,WA,TLE,RE 结果
+2>修改部分数据库模型<br />
+3>judger 实现判定 AC,WA,TLE,RE 结果<br />
 
-###06.26 icefish
+### 06.26 icefish
 ------
 1>实现判题judger模块
 	judger 模块设计
@@ -32,7 +32,7 @@ Online Judge System powered by Tornado
 3>OJ现有问题
 	3.1 admin 添加题目还不能添加数据
 
-###06.22 icefish
+### 06.22 icefish
 ------
 1>提交题目
 	1.1 status数据库集合为 judge_queues
@@ -48,11 +48,11 @@ Online Judge System powered by Tornado
 		problems.remove()
 		judge_queues.remove()
 
-###06.20 icefish
+### 06.20 icefish
 ------
 bug 修复
 
-###06.20 icefish
+### 06.20 icefish
 ------
 1>对原有部分代码风格调整
 2>实现基本user
@@ -61,7 +61,7 @@ bug 修复
 3>实现前台user响应
 4>实现提交题目form
 
-###06.19 icefish
+### 06.19 icefish
 ------
 1>套用原前台模板
 	1.1 实现主页显示(因为还没有设计user，所以暂不支持登陆)
@@ -72,7 +72,7 @@ bug 修复
 	2.1 题目id自动增长(id 字段为 '_id')
 	2.2 为了实现2.1功能添加 ids collection
 
-###06.18 icefish
+### 06.18 icefish
 ------
 1>连接数据库到mongoDB
 	1.1 数据库为本地数据库 Gaea
