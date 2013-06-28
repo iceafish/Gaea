@@ -23,11 +23,11 @@
 			<td> <center>{{items['result']['result']}} </center></td>
 			<td> <center>{{items['result']['time_used']}} </center></td>
 		{% end %}
-		{% if items['language_id'] == 1 %}
+		{% if items['language_type'] == 'gcc' %}
 			<td> <center> GNU C </center></td>
-		{% elif items['language_id'] == 2 %}
+		{% elif items['language_type'] == 'g++' %}
 			<td> <center> GNU C++ 4.7 </center></td>
-		{% elif items['language_id'] == 3 %}
+		{% elif items['language_type'] == 'java' %}
 			<td> <center> Java </center></td>
 		{% end %}
 		

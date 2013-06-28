@@ -46,7 +46,7 @@ class SubmitProblemHandler(BaseHandler):
         new_post = {
             "_id": self.getNextSequence(),
             "problem_id": int(problem_id),
-            "language_id": int(self.get_argument("language")),
+            "language_type": self.get_argument("language"),
             "user_name": self.current_user,
             "submit_date": time.ctime(),
             "result": None

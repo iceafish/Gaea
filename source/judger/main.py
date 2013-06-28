@@ -43,6 +43,9 @@ def LocalMain():
 
     while True:
         info  = json.loads(GetRequest(queue))
+        print info
+        if not info:
+            continue
         queue.rpush('result', json.dumps(Judger(info)))
 
 

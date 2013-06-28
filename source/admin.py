@@ -86,6 +86,8 @@ class AddDataFileHandler(BaseHandler):
         problem['input_data'].append(input_file['filename'])
         problem['output_data'].append(output_file['filename'])
 
+        self.application.db.problems.save(problem)
+
         self.redirect('/admin/add/data')
 
 
@@ -111,8 +113,8 @@ class AddProblemHandler(BaseHandler):
             "_id": self.getNextSequence(),
             "title": self.get_argument("title"),
             
-            "time_limit": self.get_argument("time_limit"),
-            "memory_limit": self.get_argument("memory_limit"),
+            "time_limit": int(self.get_argument("time_limit")),
+            "memory_limit": int(self.get_argument("memory_limit")),
             "use_able": self.get_argument("use_able"),
             
             "description" : self.get_argument("description"),
