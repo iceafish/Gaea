@@ -55,16 +55,17 @@ Online Judge System powered by Tornado
 
 06.20 icefish
 ------
-		bug 修复
+bug 修复
 
 06.20 icefish
 ------
-		1>对原有部分代码风格调整
-		2>实现基本user
-			2.1 user密码采用base64库基础加密
-			2.2 user尚未完善
-		3>实现前台user响应
-		4>实现提交题目form
+对原有部分代码风格调整
+实现基本user
+>user密码采用base64库基础加密
+>
+>user尚未完善
+实现前台user响应
+实现提交题目form
 
 06.19 icefish
 ------
@@ -85,6 +86,6 @@ Online Judge System powered by Tornado
 		2>采用pymongo
 
 		3>因为mongoDB是Nosql，所以为了统一以后的说法，这里解释一下名词 :)
-			MongoDB 的文档(document),相当于关系数据库中的一行记录
+		    MongoDB 的文档(document),相当于关系数据库中的一行记录
 			多个文档组成一个集合(collection),相当于关系数据库的表
 			多个集合(collection),逻辑上组织在一起,就是数据库(database)
