@@ -83,8 +83,7 @@ class AddDataFileHandler(BaseHandler):
             fin.write(item['body'])
             fin.close()
 
-        problem['input_data'].append(input_file['filename'])
-        problem['output_data'].append(output_file['filename'])
+        problem['data_files'].append(input_file['filename'].split('.')[0])
 
         self.application.db.problems.save(problem)
 
@@ -125,18 +124,19 @@ class AddProblemHandler(BaseHandler):
             "hint": self.get_argument("hint"),
             "source": self.get_argument("source"),
 
-            "input_data": [],
-            "output_data": [],
+            "data_files": [],
 
             "info": {
-                "total" : 0,
-                "AC" : 0,
-                "WA" : 0,
-                "CE": 0,
-                "RE": 0,
-                "TLE" : 0,
-                "MLE" : 0,
-                "PE" : 0
+                'total' : 0,
+                'Yes': 0,
+                'Presentation Error': 0,
+                'Time Limit Exceeded': 0,
+                'Memory Limit Exceeded': 0,
+                'Wrong Answer': 0,
+                'Runtime Error': 0,
+                'Output Limit Exceeded': 0,
+                'Compile Error': 0,
+                'System Error': 0
             }
         }
         print new_problem

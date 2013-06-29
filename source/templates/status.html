@@ -20,18 +20,10 @@
 			<td><center>{{ 'Waiting' }}</center></td>
 			<td><center>{{ '0' }}</center></td>
 		{% else %}
-            {% if items['result']['type'] == 'AC' %}
-                <td> <center>Yes</center></td>
-            {% elif items['result']['type']=='PE' %}
-                <td> <center>Presentation Error</center></td>
-            {% elif items['result']['type']=='WA' %}
-                <td> <center>Wrong Answer</center></td>
-            {% elif items['result']['type']=='RE' %}
-                <td> <center>Runtime Error</center></td>
-            {% elif items['result']['type']=='CE' %}
+            {% if items['result']['type']=='Compile Error' %}
                 <td> <center>  <a href="/status/{{items['_id']}}">Compile Error</a></center></td>
-            {% elif items['result']['type']=='TLE' %}
-                <td> <center>Time Limit Exceeded</center></td>
+            {% else %}
+                <td> <center>{{items['result']['type']}}</center></td>
             {% end %}
         <td> <center>{{"%0.2f" % items['result']['time_used']}} </center></td>
 		{% end %}

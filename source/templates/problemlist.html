@@ -17,11 +17,11 @@
 				<td><a href="/problem/{{ id['_id'] }}">{{ id['title'] }}</a></td>
 				<td><center>
 					{% if id['info']['total'] %}
-						{{ "%0.2f"%(id['info']['AC']/id['info']['total']) }}
+						{{ "%0.2f"%(id['info']['Yes']/float(id['info']['total'])) }}
 					{% else %}
 						{{ 0.00 }}
 					{% end %}
-					({{ id['info']['AC'] }}/{{ id['info']['total'] }})</center></td>
+					({{ id['info']['Yes'] }}/{{ id['info']['total'] }})</center></td>
 				<td><center>{{ id['source'] }}</center></td>
 		{% end %}
 	</tr>

@@ -25,10 +25,9 @@ class MongoScannerThreading(threading.Thread):
                 'problem_id': item['problem_id'],
                 'language_type': item['language_type'],
                 'time_limit': problem['time_limit'],
-                'memory_limit': 64,
+                'memory_limit': problem['memory_limit'],
                 'source_file_name': item['code_file'].split('/')[-1],
-                'input_files': problem['input_data'],
-                'output_files': problem['output_data']
+                'data_files': problem['data_files']
             }
             print req
             self.redis_db.rpush('request', json.dumps(req))
@@ -83,10 +82,17 @@ def main():
     request_db = pymongo.Connection('localhost',27017).Gaea
 
     scan_threading = MongoScannerThreading(120, request_db, sync_queue)
+    scan_threading.setDaemon(True)
     scan_threading.start()
 
     answer_threading = ResultListenerThreading(request_db, sync_queue)
+    answer_threading.setDaemon(True)
     answer_threading.start()
+
+    while True:
+        cmd = raw_input()
+        if cmd == 'exit':
+            break
 
 if __name__ == '__main__':
     main()

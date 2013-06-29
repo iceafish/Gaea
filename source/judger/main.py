@@ -2,7 +2,7 @@ import redis
 import os
 import json
 from configure import redis_host
-from judger import Judger
+from judge import Judge
 
 
 def GetRequest(queue):
@@ -19,15 +19,27 @@ def Init(data_file_status):
         if os.path.isdir(tf):
             data_file_status.append( int(folders) )
 
+def CleanTemp():
+    Dir = "./Temp/"
+    for files in os.listdir(Dir):
+        print files
+        tfile = os.path.join(Dir, files)
+        if os.path.isfile(tfile):
+            os.remove(tfile)
+        else:
+            print "delete file error."
+    else:
+        print 'clear done.'
+
 
 def LocalMain():
     queue = redis.Redis(host=redis_host)
 
     while True:
         info  = json.loads(GetRequest(queue))
-        print info
-        queue.rpush('result', json.dumps(Judger(info)))
-        print queue.lrange('result', 0, -1)
+        msg = json.dumps(Judge(info))
+        CleanTemp()
+        queue.rpush('result', msg)
 
 def Main():
     '''

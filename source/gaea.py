@@ -7,6 +7,7 @@ import tornado.ioloop
 import tornado.auth
 import os.path
 import pymongo
+import subprocess
 from tornado.options import define, options
 from admin import *
 from problems import (ProblemsHandler, 
@@ -72,7 +73,7 @@ class StatusHandler(tornado.web.RequestHandler):
     
     def get(self):
         db = self.application.db.judge_queues
-        self.render("status.html", status_list=db.find())
+        self.render("status.html", status_list=db.find().sort('_id',-1).limit(10))
 
 class RankHandler(tornado.web.RequestHandler):
     
@@ -90,6 +91,9 @@ def main():
     tornado.options.parse_command_line()
     http_server = tornado.httpserver.HTTPServer(Application())
     http_server.listen(options.port)
+
+
+
     tornado.ioloop.IOLoop.instance().start()
     
 if __name__ == "__main__":

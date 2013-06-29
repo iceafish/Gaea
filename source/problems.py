@@ -1,6 +1,7 @@
 import tornado.httpserver
 import tornado.web
 import time
+import json
 from jserver import AddRequest
 
 class BaseHandler(tornado.web.RequestHandler):
@@ -88,14 +89,10 @@ class SubmitProblemHandler(BaseHandler):
             'problem_id': new_post['problem_id'],
             'language_type': new_post['language_type'],
             'time_limit': problem['time_limit'],
-            'memory_limit': 64,
+            'memory_limit': problem['memory_limit'],
             'source_file_name': new_post['code_file'].split('/')[-1],
-            'input_files': problem['input_data'],
-            'output_files': problem['output_data']
+            'data_files': problem['data_files']
         }
         AddRequest(json.dumps(req))
 
         self.redirect('/status')
-        
-        
-        

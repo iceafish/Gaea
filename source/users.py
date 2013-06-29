@@ -69,14 +69,16 @@ class RegisterUserHandler(BaseHandler):
             "group": "student",
             
             "info": {
-                "AC": 0,
-                "WA": 0,
-                "CE": 0,
-                "RE": 0,
-                "TLE": 0,
-                "MLE": 0,
-                "PE": 0,
-                "submit": 0,
+                'submit' : 0,
+                'Yes': 0,
+                'Presentation Error': 0,
+                'Time Limit Exceeded': 0,
+                'Memory Limit Exceeded': 0,
+                'Wrong Answer': 0,
+                'Runtime Error': 0,
+                'Output Limit Exceeded': 0,
+                'Compile Error': 0,
+                'System Error': 0
             }
         }
         
