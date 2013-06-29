@@ -41,11 +41,11 @@ def Compile(judge_info):
         return (True, executable_name)
     return (False, err+out)
 
-def StartTestRun(program_name, problem_id, time_limit, input_files):
+def StartTestRun(program_name, problem_id, time_out, input_files):
     global proceeding, judge_switch
 
     runerr = False
-    killer = threading.Timer(time_limit, Killer)
+    killer = threading.Timer(time_out, Killer)
 
     start_time = time.time()
     killer.start()
@@ -62,10 +62,17 @@ def StartTestRun(program_name, problem_id, time_limit, input_files):
         infile = open(data_dir+item, 'r')
         outfile = open(temp_dir+out_file, 'w')
 
-        proceeding = subprocess.Popen('./'+program_name, cwd=temp_dir,
+        proceeding = subprocess.Popen('./Temp/'+program_name, #cwd=temp_dir,
             stdin=infile, stdout=outfile, universal_newlines=True)
 
+
+        msg = proceeding.communicate()
         proceeding.wait()
+
+        print '========'
+        print msg
+        print 'return code:',proceeding.returncode
+        print '========'
 
         if proceeding.returncode != 0:
             runerr = True
@@ -108,10 +115,13 @@ def CleanTemp():
 def StartJudging(info):
     global judge_switch
 
+    id = info['_id']
+
     res = Compile(info)
 
     if not res[0]:
         result = {
+            '_id': id,
             'type': 'CE',
             'time_used': 0,
             'err_code': res[1]
@@ -122,6 +132,7 @@ def StartJudging(info):
     res = StartTestRun(res[1], info['problem_id'], info['time_limit'], info['input_files'])
     if (not res[0]) and res[1]=='timeout':
         result = {
+            '_id': id,
             'type': 'TLE',
             'time_used': res[2],
             'err_code': None
@@ -131,21 +142,23 @@ def StartJudging(info):
     if not Verify(info['problem_id'], info['output_files']):
         if res[1] == 'runerr':
             return {
+                '_id': id,
                 'type': 'RE',
-                'time_used': res[2],
+                'time_used': res[-1],
                 'err_code': None
             }
 
-        result = {
+        return {
+            '_id': id,
             'type': 'WA',
-            'time_used': res[1],
+            'time_used': res[-1],
             'err_code': None
         }
-        return result
 
     return {
+        '_id': id,
         'type': 'AC',
-        'time_used': res[1],
+        'time_used': res[-1],
         'err_code': None
     }
 

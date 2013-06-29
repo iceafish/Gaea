@@ -5,13 +5,15 @@ import pymongo
 import threading
 import time
 
+sync_queue = redis.Redis(host='localhost')
+
 class MongoScannerThreading(threading.Thread):
 
     def __init__(self, p, mongodb, redisdb):
         threading.Thread.__init__(self)
+        self.period = p
         self.mongo_db = mongodb
         self.redis_db = redisdb
-        self.period = p
 
     def scanner(self):
         requests = self.mongo_db.judge_queues.find({'result': None})
@@ -39,21 +41,52 @@ class MongoScannerThreading(threading.Thread):
 
 class ResultListenerThreading(threading.Thread):
 
-    def __init__(self):
-        pass
+    def __init__(self, mongodb, redisdb):
+        threading.Thread.__init__(self)
+        self.mongo_db = mongodb
+        self.redis_db = redisdb
 
     def run(self):
-        pass
+        while True:
+            res = self.redis_db.blpop('result')[1]
+            res = json.loads(res)
 
-def AddRequest():
-    pass
+            request = self.mongo_db.judge_queues.find_one({'_id': res['_id'] })
+            if not request:
+                print 'result id error,do not exist id %d.' % res['_id']
+                continue
+            del res['_id']
+            request['result'] = res
+
+            problem = self.mongo_db.problems.find_one({'_id': request['problem_id'] })
+            if not problem:
+                print 'problem not found.'
+                continue
+            problem['info'][res['type']] += 1
+
+            user = self.mongo_db.users.find_one({'user_name': request['user_name'] })
+            if not user:
+                print 'user find err'
+                continue
+            user['info'][res['type']] += 1
+
+            self.mongo_db.problems.save(problem)
+            self.mongo_db.users.save(user)
+            self.mongo_db.judge_queues.save(request)
+
+def AddRequest(req):
+    global sync_queue
+    sync_queue.rpush('request', req)
 
 def main():
+    global sync_queue
     request_db = pymongo.Connection('localhost',27017).Gaea
-    sync_queue = redis.Redis(host='localhost')
 
     scan_threading = MongoScannerThreading(120, request_db, sync_queue)
     scan_threading.start()
+
+    answer_threading = ResultListenerThreading(request_db, sync_queue)
+    answer_threading.start()
 
 if __name__ == '__main__':
     main()

@@ -6,7 +6,16 @@ Online Judge System powered by Tornado
 06.28 icefish
 -----
         * 修复数据库之间访问由于数据格式错误带来的bug
-        * 可以正确响应判题请求
+        * 可以正确响应判题请求,可以接收判题结果并修改相应数据库信息
+        * 重要bug修复 开启 judger 的第一次提交判题请求可以立即响应,但结果不能传送的错误
+        * 未完成模块
+            1.1 Compile Error信息正确显示链接,链接后显示错误信息未完成
+            1.2 题目提交信息汇总、用户提交信息汇总未实现
+
+        * 已知问题
+            (致命) 2.1 judger 不能正确判断runtime error,独立测试通过
+                       错误原因:程序runtime error无法正确接收错误信息,Popen 的returncode中仍返回代码主函数中返回值
+                       程序无法正确判断,暂时无解(1.正确接收运行时错误 2.正确得到程序运行时返回值)
 
 06.27 icefish
 ------
@@ -14,7 +23,7 @@ Online Judge System powered by Tornado
 			1.1 在新建题目时,自动在judger/DataFile 下建立对应id的数据文件夹
 
 		* 修改部分数据库模型
-		* judger 实现判定 AC,WA,TLE,RE 结果
+		* judger 实现判定 AC,WA,TLE,RE,CE 结果
 
 06.26 icefish
 ------

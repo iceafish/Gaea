@@ -69,7 +69,13 @@ class RegisterUserHandler(BaseHandler):
             "group": "student",
             
             "info": {
-                "accept": 0,
+                "AC": 0,
+                "WA": 0,
+                "CE": 0,
+                "RE": 0,
+                "TLE": 0,
+                "MLE": 0,
+                "PE": 0,
                 "submit": 0,
             }
         }

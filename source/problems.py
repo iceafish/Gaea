@@ -1,6 +1,7 @@
 import tornado.httpserver
 import tornado.web
 import time
+from jserver import AddRequest
 
 class BaseHandler(tornado.web.RequestHandler):
     
@@ -51,12 +52,7 @@ class SubmitProblemHandler(BaseHandler):
             "submit_date": time.ctime(),
             "result": None
         }
-        '''
-        result = {
-            "result": 0,
-            "time_used": 0
-        }
-        '''
+
         submit_file = self.request.files["code_file"][0]
         file_type = submit_file['filename'].split('.')[-1]
         if not file_type:
@@ -85,6 +81,19 @@ class SubmitProblemHandler(BaseHandler):
             {'_id': new_post['problem_id']},
             {'$inc': {'info.total': 1}}
         )
+
+        problem = self.application.db.problems.find_one({'_id': new_post['problem_id']})
+        req = {
+            '_id': new_post['_id'],
+            'problem_id': new_post['problem_id'],
+            'language_type': new_post['language_type'],
+            'time_limit': problem['time_limit'],
+            'memory_limit': 64,
+            'source_file_name': new_post['code_file'].split('/')[-1],
+            'input_files': problem['input_data'],
+            'output_files': problem['output_data']
+        }
+        AddRequest(json.dumps(req))
 
         self.redirect('/status')
         

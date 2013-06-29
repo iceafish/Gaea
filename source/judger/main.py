@@ -8,24 +8,6 @@ from judger import Judger
 def GetRequest(queue):
     return queue.blpop('request')[1]
 
-    '''
-    return {
-        '_id': 1,
-        'problem_id': 1,
-        'language_type': 'g++',
-        'time_limit': 1,
-        'memory_limit': 64,
-        'source_file_name': 'tle.cpp',
-        'input_files': ['1.in'],
-        'output_files': ['1.out']
-    }
-    result = {
-        'type': 'AC',
-        'time_used': 1,
-        'err_code'; None
-    }
-    '''
-
 def GetDataFile(problem_id):
     pass
 
@@ -44,12 +26,11 @@ def LocalMain():
     while True:
         info  = json.loads(GetRequest(queue))
         print info
-        if not info:
-            continue
         queue.rpush('result', json.dumps(Judger(info)))
-
+        print queue.lrange('result', 0, -1)
 
 def Main():
+    '''
     queue = redis.Redis(host=redis_host)
     data_file_status = []
 
@@ -68,6 +49,8 @@ def Main():
                 continue
 
         queue.rpush(json.dumps('result',Judger(info)))
+    '''
+    pass
 
 if __name__ == '__main__':
     if redis_host=='localhost' or redis_host=='127.0.0.1':
