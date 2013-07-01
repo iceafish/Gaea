@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block body %}
+<center>
+    <h2>{{user['user_name']}}</h2>
+    <hr>
+        Contral Panel<br>
+    <a href="/user/changepass">ChangePassword</a>
+    <hr>
+    <table>
+        <tr><td>Problem Solved:</td><td>{{ len(user['solved']) }}</td></tr>
+        <tr><td>Submissions:</td><td>{{user['info']['submit']}}</td></tr>
+        <tr><td>Accepted:</td><td>{{user['info']['Yes']}}</td></tr>
+    </table>
+</center>
+
+
+<hr>
+List of solved Problems
+{% for x in user['solved'] %}
+<a href = "/problem/{{x}}">{{x}}</a>&nbsp&nbsp
+{% end %}
+<hr>
+List of Trying Problems
+{% for x in user['trying'] %}
+<a href = "/problem/{{x}}">{{x}}</a>&nbsp&nbsp
+{% end %}
+<hr>
+
+
+{% end %}

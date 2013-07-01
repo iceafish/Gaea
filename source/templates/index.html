@@ -23,7 +23,7 @@ ACM队的队员在程序设计方面几乎始终代表着全院的最高水平�
 	</form>
 	<a href="/register">Register</a>
 {% else %}
-	Welcome to <a href="/user/myinfo/">{{ curuser }}.</a>
+	Welcome to <a href="/user/{{curuser}}">{{ curuser }}.</a>
 	<a href="/logout">Logout</a>
 {% end %}
 {% end %}

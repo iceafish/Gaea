@@ -10,12 +10,8 @@ import pymongo
 import subprocess
 from tornado.options import define, options
 from admin import *
-from problems import (ProblemsHandler, 
-                      ShowProblemHandler,
-                      SubmitProblemHandler)
-from users import (RegisterUserHandler,
-                   UserLoginHandler,
-                   UserLogoutHandler)
+from problems import *
+from users import *
 
 define("port", default=8888, help="run on the given port", type=int)
 
@@ -27,11 +23,14 @@ class Application(tornado.web.Application):
             (r"/problems", ProblemsHandler),
             (r"/problem/(\d+)", ShowProblemHandler),
             (r"/status", StatusHandler),
+            (r"/status/(\d+)", ComplieErrInfoHandler),
             (r"/ranklist", RankHandler),
             (r"/submit/(\d+)", SubmitProblemHandler),
             
             (r"/faq", FaqHandler),
-            
+
+            (r"/user/(\w+)", UserInfoHandler),
+
             (r"/register", RegisterUserHandler),
             (r"/login", UserLoginHandler),
             (r"/logout", UserLogoutHandler),
@@ -75,6 +74,17 @@ class StatusHandler(tornado.web.RequestHandler):
         db = self.application.db.judge_queues
         self.render("status.html", status_list=db.find().sort('_id',-1).limit(10))
 
+class ComplieErrInfoHandler(tornado.web.RequestHandler):
+
+    def get(self, id):
+        db = self.application.db.judge_queues.find_one({'_id':int(id)})
+
+        if not db or not db['result']['err_code']:
+            return self.write('404, id not exist')
+
+        self.render('error_msg.html', msg=db['result']['err_code'])
+
+
 class RankHandler(tornado.web.RequestHandler):
     
     def get(self):
@@ -86,14 +96,11 @@ class FaqHandler(tornado.web.RequestHandler):
     
     def get(self):
         self.render("faq.html")
-        
+
 def main():
     tornado.options.parse_command_line()
     http_server = tornado.httpserver.HTTPServer(Application())
     http_server.listen(options.port)
-
-
-
     tornado.ioloop.IOLoop.instance().start()
     
 if __name__ == "__main__":

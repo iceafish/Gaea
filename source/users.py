@@ -49,7 +49,7 @@ class UserLogoutHandler(BaseHandler):
 class RegisterUserHandler(BaseHandler):
     
     def get(self):
-        return self.render("users/register.html")
+        return self.render("register.html")
     
     def post(self):
         db = self.application.db.users
@@ -67,7 +67,8 @@ class RegisterUserHandler(BaseHandler):
             "passwd": code_pw,
             "email": self.get_argument("email"),
             "group": "student",
-            
+            'solved': [],
+            'trying': [],
             "info": {
                 'submit' : 0,
                 'Yes': 0,
@@ -84,3 +85,12 @@ class RegisterUserHandler(BaseHandler):
         
         db.insert(new_user)
         self.redirect("/")
+
+class UserInfoHandler(BaseHandler):
+
+    def get(self, user_name):
+        the_user = self.application.db.users.find_one({'user_name': user_name})
+        if not the_user:
+            return self.write("404, not found this user %s." % user_name)
+
+        self.render("user_info.html", user=the_user)

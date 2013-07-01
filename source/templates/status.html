@@ -5,27 +5,30 @@
 	<table width="100%">
 	<th width="5%">ID</th>
 	<th width="10%">User</th>
-	<th width="10%">problemID</th>
+	<th width="5%">Problem</th>
 	<th width="10%">Result</th>
 	<th width="15%">Time</th>
+    <th width="15%">Memory</th>
 	<th width="15%">Language</th>
-	<th width="35%">Submit Time</th>
+	<th width="20%">Submit Time</th>
 	
 	{% for items in status_list %}
 	<tr>
 		<td> <center>{{items['_id']}} </center></td>
-		<td> <center>{{items['user_name']}} </center></td>
-		<td> <center>{{items['problem_id']}} </center></td>
+		<td> <center><a href="/user/{{items['user_name']}}">{{items['user_name']}}</a> </center></td>
+		<td> <center><a href="/problem/{{items['problem_id']}}">{{items['problem_id']}}</a> </center></td>
 		{% if not items['result'] %}
 			<td><center>{{ 'Waiting' }}</center></td>
 			<td><center>{{ '0' }}</center></td>
+            <td><center>{{ '0' }}</center></td>
 		{% else %}
             {% if items['result']['type']=='Compile Error' %}
                 <td> <center>  <a href="/status/{{items['_id']}}">Compile Error</a></center></td>
             {% else %}
                 <td> <center>{{items['result']['type']}}</center></td>
             {% end %}
-        <td> <center>{{"%0.2f" % items['result']['time_used']}} </center></td>
+            <td> <center>{{"%0.2f" % items['result']['time_used']}} </center></td>
+            <td><center>{{ items['result']['memory_used'] }}</center></td>
 		{% end %}
 		{% if items['language_type'] == 'gcc' %}
 			<td> <center> GNU C </center></td>
@@ -39,5 +42,9 @@
 	</tr>
 	{% end %}
 	</table>
+
+
+
+
 
 {% end %}

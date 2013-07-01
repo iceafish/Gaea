@@ -34,7 +34,8 @@ class MongoScannerThreading(threading.Thread):
 
     def run(self):
         while True:
-            print 'scanner start...'
+            print 'scanner start...',
+            print time.strftime("%Y-%m-%d %A %X", time.localtime())
             self.scanner()
             time.sleep(self.period)
 
@@ -68,6 +69,14 @@ class ResultListenerThreading(threading.Thread):
                 print 'user find err'
                 continue
             user['info'][res['type']] += 1
+            if res['type']=='Yes':
+                if request['problem_id'] not in user['solved']:
+                    user['solved'].append(request['problem_id'])
+                if request['problem_id'] in user['trying']:
+                    user['trying'].remove(request['problem_id'])
+            else:
+                if request['problem_id'] not in (user['solved'] + user['trying']):
+                    user['trying'].append(request['problem_id'])
 
             self.mongo_db.problems.save(problem)
             self.mongo_db.users.save(user)
