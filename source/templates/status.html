@@ -27,8 +27,8 @@
             {% else %}
                 <td> <center>{{items['result']['type']}}</center></td>
             {% end %}
-            <td> <center>{{"%0.2f" % items['result']['time_used']}} </center></td>
-            <td><center>{{ items['result']['memory_used'] }}</center></td>
+            <td> <center>{{"%0.2f" % items['result']['time_used']}}MS</center></td>
+            <td><center>{{ items['result']['memory_used'] }}K</center></td>
 		{% end %}
 		{% if items['language_type'] == 'gcc' %}
 			<td> <center> GNU C </center></td>

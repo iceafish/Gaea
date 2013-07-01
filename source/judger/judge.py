@@ -92,8 +92,8 @@ def Judge(request_info):
         outfile = data_path + '.out'
         runcfg = {
             'args':[temp_dir + exe_file],
-            'timelimit':request_info['time_limit'],
-            'memorylimit':request_info['memory_limit']*1024
+            'timelimit':request_info['time_limit']*1000,
+            'memorylimit':request_info['memory_limit']
         }
         rst = RunOne(runcfg, infile, outfile, tempfile)
 
@@ -103,7 +103,7 @@ def Judge(request_info):
             if not record['type']:
                 record['type'] = RESULT_STR[rst['result']]
                 record['time_used'] = rst['timeused']
-                record['memory_used'] = rst['memoryused']/1024
+                record['memory_used'] = rst['memoryused']
             else:
                 if rst['timeused'] > record['time_used']:
                     record['time_used'] = rst['timeused']

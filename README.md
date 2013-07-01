@@ -3,6 +3,10 @@ Gaea
 
 Online Judge System powered by Tornado
 
+07.01 icefish
+-----
+        * 修正因为单位不统一带来的错误
+
 06.30 icefish
 -----
         * 由于底层运行的一些问题,取消了判题服务随服务器启动而启动的功能,改为手动启动
