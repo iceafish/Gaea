@@ -7,8 +7,8 @@ import time
 
 sync_queue = redis.Redis(host='localhost')
 
-class MongoScannerThreading(threading.Thread):
 
+class MongoScannerThreading(threading.Thread):
     def __init__(self, p, mongodb, redisdb):
         threading.Thread.__init__(self)
         self.period = p
@@ -88,7 +88,7 @@ def AddRequest(req):
 
 def main():
     global sync_queue
-    request_db = pymongo.Connection('localhost',27017).Gaea
+    request_db = pymongo.Connection('localhost', 27017).Gaea
 
     scan_threading = MongoScannerThreading(120, request_db, sync_queue)
     scan_threading.setDaemon(True)

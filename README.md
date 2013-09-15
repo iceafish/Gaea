@@ -2,6 +2,23 @@ Gaea
 ====
 
 Online Judge System powered by Tornado
+        * 开发环境
+            Ubuntu 12.04 & 13.04
+            python 2.7
+            python-dev 2.7
+            tornado 3.1
+            redis-server 2.6.7
+            pymongo 2.5.2
+            python-redis 2.4.13
+            Lo-runner
+        * 开发环境配置
+            apt-get python-dev
+            tornado python install
+            apt-get redis-server python-redis
+            pip pymongo
+            git Lo-runner python install
+
+
 
 07.01 icefish
 -----
